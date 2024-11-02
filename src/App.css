@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.perspective {
+  perspective: 1000px; /* กำหนดระยะห่างเพื่อให้ดูมีมิติ */
+}
+
+.video-container {
+  transform: rotateY(10deg); /* หมุนวิดีโอในแกน Y */
+  transition: transform 0.5s; /* เพิ่มความนุ่มนวลในการหมุน */
+}
+
+.video-container:hover {
+  transform: rotateY(0deg); /* เมื่อเอาเมาส์ไปวางที่วิดีโอจะคืนสู่ตำแหน่งปกติ */
+}
+@media (max-width: 640px) {
+  .slick-slide {
+      display: flex !important; /* แสดงเพียงอันเดียวในขนาด sm */
+  }
+}

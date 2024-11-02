@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Datatable from './component/Datatable'; // เส้นทางที่ตรงกับโฟลเดอร์ที่เก็บ Datatable
+import Login from './component/Login';
+import Navbar from './component/Navbar';
+import Register from './component/Register';
+import Home from './component/็Home';
+import './index.css'; // นำเข้าไฟล์ CSS ที่มี Tailwind
+import Account from './component/Account';
+import Footer from './component/Footer';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    <Navbar />
+    <Home />
+    <Routes>
+      <Route path="/datatable" element={<Datatable />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/account" element={<Account />} />
+    </Routes>
+    <Footer />
+  </Router>
   );
 }
 
