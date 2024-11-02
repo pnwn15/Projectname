@@ -14,7 +14,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/login', { email, password });
+            const response = await axios.post('http://localhost:5000/login1', { email, password });
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('userEmail', email);
             setDialogMessage('ล็อกอินสำเร็จ! ยินดีต้อนรับ ' + email);
@@ -40,64 +40,62 @@ function Login() {
             className="flex justify-center items-center h-screen bg-cover" 
             style={{ backgroundImage: 'url(imageorvideo/login2.jpg)' }}
         >
-            <div className="flex justify-center w-1/2 items-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('imageorvideo/login-background.jpg')" }}>
-            <div className="bg-black border shadow-2xl border-yellow-600 bg-opacity-70 p-8 rounded-lg  w-full">
-    <Typography variant="h4" className="text-white text-center">เข้าสู่ระบบ</Typography>
-    <form className='flex flex-col gap-5  mt-4 w-full' onSubmit={handleSubmit}>
-        <TextField
-            label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            variant="outlined"
-            fullWidth
-            InputProps={{
-                className: 'bg-white text-white',
-            }}
-            InputLabelProps={{
-                className: 'text-gray-400',
-            }}
-        />
-        <TextField
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            variant="outlined"
-            fullWidth
-            InputProps={{
-                className: 'bg-white text-white',
-            }}
-            InputLabelProps={{
-                className: 'text-gray-400',
-            }}
-        />
-        <Button 
-            type="submit" 
-            variant="contained" 
-            className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 transition duration-300 mt-4"
-        >
-            Login
-        </Button>
-    </form>
+            <div className="flex justify-center items-center h-screen">
+                <div className="bg-black border shadow-2xl border-yellow-600 bg-opacity-70 p-8 rounded-lg w-full max-w-sm">
+                    <Typography variant="h4" className="text-white text-center">เข้าสู่ระบบ</Typography>
+                    <form className='flex flex-col gap-5 mt-4 w-full' onSubmit={handleSubmit}>
+                        <TextField
+                            label="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            variant="outlined"
+                            fullWidth
+                            InputProps={{
+                                className: 'bg-gray-800 text-white', // แก้ไขสีพื้นหลังและฟอนต์
+                            }}
+                            InputLabelProps={{
+                                className: 'text-gray-400',
+                            }}
+                        />
+                        <TextField
+                            label="Password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            variant="outlined"
+                            fullWidth
+                            InputProps={{
+                                className: 'bg-gray-800 text-white', // แก้ไขสีพื้นหลังและฟอนต์
+                            }}
+                            InputLabelProps={{
+                                className: 'text-gray-400',
+                            }}
+                        />
+                        <Button 
+                            type="submit" 
+                            variant="contained" 
+                            className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 transition duration-300 mt-4"
+                        >
+                            Login
+                        </Button>
+                    </form>
 
-    {/* Dialog สำหรับแจ้งเตือน */}
-    <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle className="text-center">{isSuccess ? 'ล็อกอินสำเร็จ' : 'ข้อผิดพลาดในการล็อกอิน'}</DialogTitle>
-        <DialogContent>
-            <Typography>{dialogMessage}</Typography>
-        </DialogContent>
-        <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
-                ตกลง
-            </Button>
-        </DialogActions>
-    </Dialog>
-</div>
-
-</div>
-
+                    {/* Dialog สำหรับแจ้งเตือน */}
+                    <Dialog open={openDialog} onClose={handleCloseDialog}>
+                        <DialogTitle className="text-center">{isSuccess ? 'ล็อกอินสำเร็จ' : 'ข้อผิดพลาดในการล็อกอิน'}</DialogTitle>
+                        <DialogContent>
+                            <Typography>{dialogMessage}</Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleCloseDialog} color="primary">
+                                ตกลง
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+            </div>
         </div>
     );
 }

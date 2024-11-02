@@ -14,7 +14,6 @@ function App() {
   return (
     <Router>
     <Navbar />
-    <Home />
     <Routes>
       <Route path="/datatable" element={<Datatable />} />
       <Route path="/login" element={<Login />} />

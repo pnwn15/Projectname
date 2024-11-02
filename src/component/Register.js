@@ -1,88 +1,84 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Container, Box } from '@mui/material';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // นำเข้า useNavigate
+import { TextField, Button, Typography } from '@mui/material';
+import { Container, Box } from '@mui/system';
 
 function Register() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
-    const [error, setError] = useState(null);
-    const navigate = useNavigate(); // สร้าง instance ของ useNavigate
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setError(null); // รีเซ็ตข้อผิดพลาดก่อนการส่ง
-
-        try {
-            const response = await axios.post('http://localhost:5000/register', { 
-                email, 
-                password, 
-                fname, 
-                lname 
-            });
-
-            // ตรวจสอบสถานะการตอบกลับจาก API
-            if (response.data.status === 'ok') {
-                alert('สมัครสมาชิกสำเร็จ'); // แสดงข้อความเมื่อสมัครสมาชิกสำเร็จ
-                navigate('/login'); // เปลี่ยนเส้นทางไปที่หน้า /login
-            } else {
-                setError(response.data.msg); // แสดงข้อความเมื่อเกิดข้อผิดพลาด
-            }
-        } catch (error) {
-            console.error(error);
-            setError('Registration failed: ' + (error.response?.data?.msg || error.message));
-        }
+        // Logic for registration goes here
     };
 
     return (
         <Container maxWidth="xs">
-            <Box mt={5}>
-                <Typography variant="h5" align="center">Register</Typography>
-                <form onSubmit={handleSubmit}>
+            <Box className="mt-10 p-8 bg-black bg-opacity-70 rounded-lg shadow-lg">
+                <Typography variant="h5" className="text-white text-center mb-6">สมัครสมาชิก</Typography>
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                     <TextField 
-                        label="First Name" 
+                        label="ชื่อ" 
                         value={fname} 
                         onChange={(e) => setFname(e.target.value)} 
                         required 
                         fullWidth 
-                        margin="normal" 
+                        InputProps={{
+                            className: 'bg-gray-800 text-white',
+                        }}
+                        InputLabelProps={{
+                            className: 'text-gray-400',
+                        }}
                     />
                     <TextField 
-                        label="Last Name" 
+                        label="นามสกุล" 
                         value={lname} 
                         onChange={(e) => setLname(e.target.value)} 
                         required 
                         fullWidth 
-                        margin="normal" 
+                        InputProps={{
+                            className: 'bg-gray-800 text-white',
+                        }}
+                        InputLabelProps={{
+                            className: 'text-gray-400',
+                        }}
                     />
                     <TextField 
-                        label="Email" 
+                        label="อีเมล" 
                         value={email} 
                         onChange={(e) => setEmail(e.target.value)} 
                         required 
                         fullWidth 
-                        margin="normal" 
+                        InputProps={{
+                            className: 'bg-gray-800 text-white',
+                        }}
+                        InputLabelProps={{
+                            className: 'text-gray-400',
+                        }}
                     />
                     <TextField 
-                        label="Password" 
+                        label="รหัสผ่าน" 
                         type="password" 
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                         required 
                         fullWidth 
-                        margin="normal" 
+                        InputProps={{
+                            className: 'bg-gray-800 text-white',
+                        }}
+                        InputLabelProps={{
+                            className: 'text-gray-400',
+                        }}
                     />
-                    {error && <Typography color="error">{error}</Typography>} {/* แสดงข้อความข้อผิดพลาด */}
+                    {error && <Typography className="text-red-500 text-center">{error}</Typography>} {/* แสดงข้อความข้อผิดพลาด */}
                     <Button 
                         type="submit" 
                         variant="contained" 
-                        color="primary" 
-                        fullWidth 
-                        style={{ marginTop: '16px' }}
+                        className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 transition duration-300 mt-4"
                     >
-                        Register
+                        สมัครสมาชิก
                     </Button>
                 </form>
             </Box>
