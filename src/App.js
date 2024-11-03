@@ -8,7 +8,7 @@ import Home from './component/็Home';
 import './index.css'; // นำเข้าไฟล์ CSS ที่มี Tailwind
 import Account from './component/Account';
 import Footer from './component/Footer';
-import Agents from './component/Agents';
+import CreateAgent from './component/Createagent';
 
 
 function App() {
@@ -17,13 +17,13 @@ function App() {
     <Navbar />
     <Routes>
       <Route path="/datatable" element={<Datatable />} />
-      <Route path="/Agents" element={<Agents />} />
+      <Route path="/CreateAgent" element={<CreateAgent />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/account" element={<Account />} />
     </Routes>
-    <Footer />
+    {/* <Footer /> */}
   </Router>
   );
 }
