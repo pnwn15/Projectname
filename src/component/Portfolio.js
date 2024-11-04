@@ -148,6 +148,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
+      
       <section id="projects" className="p-6 mt-6">
       
         <h2 className="text-3xl font-semibold text-yellow-400 mb-4">ประวัติการศึกษา</h2>

@@ -41,14 +41,14 @@ function Navbar() {
     const isLoggedIn = !!localStorage.getItem('token');
 
     return (
-        <AppBar position="static" sx={{ background: 'black' }}>
+        <AppBar position="static" sx={{ background: 'black', height: '80px' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', mr: 2 }}>
                         <img
                             src="/imageorvideo/logo.png"
                             alt="Logo"
-                            style={{ height: '40px', marginRight: '8px' }}
+                            style={{ height: '50px', marginRight: '8px' }} // ปรับขนาดโลโก้
                         />
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -96,18 +96,11 @@ function Navbar() {
                                         my: 2,
                                         color: 'white',
                                         display: 'block',
-                                        position: 'relative',
-                                        overflow: 'hidden',
-                                        '&:hover::after': {
-                                            content: '""',
-                                            position: 'absolute',
-                                            left: 0,
-                                            right: 0,
-                                            bottom: 0,
-                                            height: '2px',
-                                            background: 'linear-gradient(90deg, red, yellow, green, blue)',
-                                            transition: 'width 0.3s',
-                                            width: '100%',
+                                        padding: '10px 20px', // เพิ่ม padding
+                                        transition: 'color 0.3s',
+                                        '&:hover': {
+                                            color: 'rgba(255, 255, 255, 0.8)', // เปลี่ยนสีเมื่อ hover
+                                            backgroundColor: 'rgba(255, 255, 255, 0.1)', // เพิ่ม background สีอ่อนเมื่อ hover
                                         },
                                     }}
                                 >
@@ -116,10 +109,10 @@ function Navbar() {
                             ))
                         ) : (
                             <>
-                                <Button component={Link} to="/login" sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Button component={Link} to="/login" sx={{ my: 2, color: 'white', display: 'block', padding: '10px 20px' }}>
                                     Login
                                 </Button>
-                                <Button component={Link} to="/register" sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Button component={Link} to="/register" sx={{ my: 2, color: 'white', display: 'block', padding: '10px 20px' }}>
                                     Register
                                 </Button>
                             </>

@@ -1,55 +1,145 @@
-// Recharge.js
 import React, { useState } from 'react';
+import {
+    Container,
+    TextField,
+    Button,
+    Typography,
+    Snackbar,
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+} from '@mui/material';
+import axios from 'axios';
 
 function Recharge() {
-  const [amount, setAmount] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
+    const [userId, setUserId] = useState('');
+    const [amount, setAmount] = useState('');
+    const [truemoney, setTruemoney] = useState('');
+    const [message, setMessage] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [severity, setSeverity] = useState('success');
+    const [openDialog, setOpenDialog] = useState(false);
+    const [rechargeDetails, setRechargeDetails] = useState({});
 
-  const handleRecharge = () => {
-    if (amount && paymentMethod) {
-      // ทำการเรียก API หรือดำเนินการอื่นๆ
-      alert(`คุณเติมเงิน ${amount} บาท ด้วยวิธีการชำระเงิน ${paymentMethod}`);
-    } else {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-    }
-  };
+    const handleRecharge = async (event) => {
+        event.preventDefault();
 
-  return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center font-roboto-mono p-6">
-      <h1 className="text-3xl font-bold text-yellow-400 mb-8">เติมเงิน</h1>
-      
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-        <label className="block text-lg mb-2">จำนวนเงิน</label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="w-full p-2 mb-4 bg-gray-700 border-2 border-yellow-400 rounded-lg focus:outline-none focus:border-yellow-500 text-center"
-          placeholder="กรอกจำนวนเงิน"
-        />
+        try {
+            const response = await axios.post('http://localhost:5000/api/recharge_history', {
+                user_id: userId,
+                amount: parseFloat(amount),
+                truemoney: truemoney
+            });
 
-        <label className="block text-lg mb-2">วิธีการชำระเงิน</label>
-        <select
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
-          className="w-full p-2 mb-6 bg-gray-700 border-2 border-yellow-400 rounded-lg focus:outline-none focus:border-yellow-500 text-center"
+            setMessage(response.data.message);
+            setSeverity('success');
+            setOpenSnackbar(true);
+            setRechargeDetails({
+                user_id: userId,
+                amount: amount,
+                truemoney: truemoney,
+                recharge_date: new Date().toLocaleString(),
+            });
+            setOpenDialog(true);
+            setUserId('');
+            setAmount('');
+            setTruemoney('');
+        } catch (error) {
+            setMessage(error.response?.data?.message || 'เกิดข้อผิดพลาดในการเติมเงิน');
+            setSeverity('error');
+            setOpenSnackbar(true);
+        }
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
+    return (
+      <div className='bg-black'>
+        <Container
+            maxWidth="sm"
+            className="my-10 p-6 rounded-lg shadow-lg"
+            style={{
+                backgroundImage: 'url(/imageorvideo/valorant5.png)', // เปลี่ยนเส้นทางให้เป็นที่อยู่ของรูปภาพที่คุณต้องการใช้
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
         >
-          <option value="">เลือกวิธีการชำระเงิน</option>
-          <option value="Bank Transfer">โอนผ่านธนาคาร</option>
-          <option value="Credit Card">บัตรเครดิต</option>
-          <option value="PromptPay">PromptPay</option>
-          <option value="TrueMoney Wallet">TrueMoney Wallet</option>
-        </select>
+            <Typography variant="h4" align="center" gutterBottom className="text-white">
+                เติมเงิน
+            </Typography>
+            <form onSubmit={handleRecharge} className="flex flex-col gap-4 bg-black bg-opacity-50 p-4 rounded-lg">
+                <TextField
+                    label="User ID"
+                    variant="outlined"
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                    required
+                    InputProps={{
+                        className: 'bg-white text-black',
+                    }}
+                />
+                <TextField
+                    label="จำนวนเงิน"
+                    variant="outlined"
+                    type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    required
+                    InputProps={{
+                        className: 'bg-white text-black',
+                    }}
+                />
+                <TextField
+                    label="TrueMoney"
+                    variant="outlined"
+                    value={truemoney}
+                    onChange={(e) => setTruemoney(e.target.value)}
+                    required
+                    InputProps={{
+                        className: 'bg-white text-black',
+                    }}
+                />
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    className="hover:bg-green-700 transition-colors"
+                >
+                    เติมเงิน
+                </Button>
+            </form>
 
-        <button
-          onClick={handleRecharge}
-          className="w-full bg-yellow-400 text-gray-900 p-2 rounded-lg hover:bg-yellow-500 transition duration-300 font-semibold"
-        >
-          ยืนยันการเติมเงิน
-        </button>
-      </div>
-    </div>
-  );
+            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity={severity} sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
+
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+                <DialogTitle className="bg-gray-800 text-white">สลิปการเติมเงิน</DialogTitle>
+                <DialogContent className="bg-gray-700 text-white">
+                    <Typography variant="body1">User ID: {rechargeDetails.user_id}</Typography>
+                    <Typography variant="body1">จำนวนเงิน: {rechargeDetails.amount} บาท</Typography>
+                    <Typography variant="body1">TrueMoney: {rechargeDetails.truemoney}</Typography>
+                    <Typography variant="body1">วันที่เติมเงิน: {rechargeDetails.recharge_date}</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        ปิด
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Container>
+        </div>
+    );
 }
 
 export default Recharge;
