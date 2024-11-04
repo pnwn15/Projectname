@@ -9,6 +9,8 @@ import './index.css'; // นำเข้าไฟล์ CSS ที่มี Tail
 import Account from './component/Account';
 import Footer from './component/Footer';
 import CreateAgent from './component/Createagent';
+import Portfolio from './component/Portfolio';
+import NewsPage from './component/NewsPage';
 
 
 function App() {
@@ -17,13 +19,15 @@ function App() {
     <Navbar />
     <Routes>
       <Route path="/datatable" element={<Datatable />} />
+      <Route path="/NewsPage" element={<NewsPage />} />
+      <Route path="/Portfolio" element={<Portfolio />} />
       <Route path="/CreateAgent" element={<CreateAgent />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/account" element={<Account />} />
     </Routes>
-    {/* <Footer /> */}
+    <Footer />
   </Router>
   );
 }
