@@ -11,6 +11,7 @@ import Footer from './component/Footer';
 import CreateAgent from './component/Createagent';
 import Portfolio from './component/Portfolio';
 import NewsPage from './component/NewsPage';
+import Recharge from './component/Recharge';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <Navbar />
     <Routes>
       <Route path="/datatable" element={<Datatable />} />
+      <Route path="/Recharge" element={<Recharge />} />
       <Route path="/NewsPage" element={<NewsPage />} />
       <Route path="/Portfolio" element={<Portfolio />} />
       <Route path="/CreateAgent" element={<CreateAgent />} />
