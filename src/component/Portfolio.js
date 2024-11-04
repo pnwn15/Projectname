@@ -12,7 +12,7 @@ function App() {
 
       {/* Profile Section */}
       <section id="profile" className="p-6 text-center mt-6">
-        <img src="/path/to/your-avatar.png" alt="Profile" className="w-32 h-32 mx-auto rounded-full border-4 border-yellow-400 shadow-lg" />
+        <img src="imageorvideo/nem.png" alt="Profile" className="w-52 h-52 mx-auto rounded-full border-4 border-yellow-400 shadow-lg" />
         <h2 className="text-4xl font-semibold mt-4">PANAWAT SRIMUANG</h2>
         <p className="text-gray-400">WEB Developer </p>
       </section>
